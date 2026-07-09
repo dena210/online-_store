@@ -1,14 +1,12 @@
 <?php
 session_start();
-include '../db.php';
+include 'db.php';
 
-// حماية: بس الادمن بفوت
 if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
     header("Location: ../login.php");
     exit();
 }
 
-// احصائيات سريعة
 $total_products = $conn->query("SELECT COUNT(*) as c FROM products")->fetch_assoc()['c'];
 $total_users = $conn->query("SELECT COUNT(*) as c FROM users WHERE role='user'")->fetch_assoc()['c'];
 $total_orders = $conn->query("SELECT COUNT(*) as c FROM orders")->fetch_assoc()['c'];
