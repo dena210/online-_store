@@ -11,7 +11,6 @@ include 'db.php';
 </head>
 <body class="bg-light">
 
-<!-- شريط علوي -->
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="index.php">المتجر الالكتروني</a>
@@ -33,7 +32,6 @@ include 'db.php';
     
     <div class="row">
     <?php
-    // جلب كل المنتجات من الداتا بيز
     $sql = "SELECT p.*, c.name as cat_name FROM products p LEFT JOIN categories c ON p.category_id=c.id ORDER BY p.id DESC";
     $result = $conn->query($sql);
     
@@ -49,8 +47,7 @@ include 'db.php';
                         <p class="text-muted"><?php echo $row['cat_name']; ?></p>
                         <p class="card-text"><?php echo substr($row['description'], 0, 100); ?>...</p>
                         <h4 class="text-primary"><?php echo $row['price']; ?> $</h4>
-                        
-                        <!-- زر اضافة للسلة -->
+                    
                         <a href="cart.php?add=<?php echo $row['id']; ?>" class="btn btn-primary w-100">اضافة للسلة 🛒</a>
                     </div>
                 </div>
