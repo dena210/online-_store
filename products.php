@@ -1,8 +1,7 @@
 <?php
 session_start();
-include '../db.php';
+include 'db.php';
 
-// حماية: بس الادمن
 if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin'){
     header("Location: ../login.php");
     exit();
@@ -10,14 +9,12 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin'){
 
 $msg = "";
 
-// حذف منتج
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
     $conn->query("DELETE FROM products WHERE id=$id");
     $msg = "<div class='alert alert-danger'>تم حذف المنتج</div>";
 }
 
-// اضافة / تعديل منتج
 if(isset($_POST['save_product'])){
     $id = $_POST['id'];
     $name = $_POST['name'];
@@ -25,7 +22,6 @@ if(isset($_POST['save_product'])){
     $price = $_POST['price'];
     $category_id = $_POST['category_id'];
     
-    // رفع الصورة
     $image = "";
     if(isset($_FILES['image']) && $_FILES['image']['name'] != ""){
         $target_dir = "../uploads/";
@@ -34,11 +30,11 @@ if(isset($_POST['save_product'])){
         move_uploaded_file($_FILES["image"]["tmp_name"], $target_dir . $image);
     }
 
-    if($id == ""){ // اضافة جديد
+    if($id == ""){ 
         $sql = "INSERT INTO products (name, description, price, category_id, image) 
                 VALUES ('$name', '$description', '$price', '$category_id', '$image')";
         $msg = "<div class='alert alert-success'>تم اضافة المنتج</div>";
-    } else { // تعديل
+    } else { 
         if($image != "") $img_sql = ", image='$image'";
         else $img_sql = "";
         $sql = "UPDATE products SET name='$name', description='$description', price='$price', 
@@ -48,7 +44,6 @@ if(isset($_POST['save_product'])){
     $conn->query($sql);
 }
 
-// جلب بيانات للتعديل
 $edit_data = ['id'=>'','name'=>'','description'=>'','price'=>'','category_id'=>'','image'=>''];
 if(isset($_GET['edit'])){
     $edit_id = $_GET['edit'];
@@ -75,8 +70,6 @@ if(isset($_GET['edit'])){
 <div class="container my-4">
     <h2 class="mb-4">ادارة المنتجات</h2>
     <?php echo $msg; ?>
-
-    <!-- نموذج الاضافة والتعديل -->
     <div class="card mb-4">
         <div class="card-header"><?php echo $edit_data['id'] ? 'تعديل منتج' : 'اضافة منتج جديد'; ?></div>
         <div class="card-body">
