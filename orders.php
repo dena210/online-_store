@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../db.php';
+include 'db.php';
 
 if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin'){
     header("Location: ../login.php");
@@ -80,8 +80,6 @@ if(isset($_POST['update_status'])){
                             </form>
                         </td>
                     </tr>";
-
-                    // مودال تفاصيل الطلب
                     echo "<div class='modal fade' id='order{$row['id']}'>
                         <div class='modal-dialog'>
                         <div class='modal-content'>
