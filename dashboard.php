@@ -2,13 +2,11 @@
 session_start();
 include '../db.php';
 
-// حماية: بس الادمن بفوت
 if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
     header("Location: ../login.php");
     exit();
 }
 
-// احصائيات سريعة
 $total_products = $conn->query("SELECT COUNT(*) as c FROM products")->fetch_assoc()['c'];
 $total_users = $conn->query("SELECT COUNT(*) as c FROM users WHERE role='user'")->fetch_assoc()['c'];
 $total_orders = $conn->query("SELECT COUNT(*) as c FROM orders")->fetch_assoc()['c'];
@@ -18,7 +16,7 @@ $total_orders = $conn->query("SELECT COUNT(*) as c FROM orders")->fetch_assoc()[
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة التحكم</title>
+    <titleلوحة التحكم</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
