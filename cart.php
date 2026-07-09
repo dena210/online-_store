@@ -1,8 +1,6 @@
 <?php
 session_start();
 include 'db.php';
-
-// اضافة للسلة
 if(isset($_GET['add'])){
     $id = $_GET['add'];
     if(isset($_SESSION['cart'][$id])){
@@ -19,14 +17,11 @@ if(isset($_GET['add'])){
     }
     header("Location: cart.php");
 }
-
-// حذف من السلة
 if(isset($_GET['remove'])){
     unset($_SESSION['cart'][$_GET['remove']]);
     header("Location: cart.php");
 }
 
-// تحديث الكمية
 if(isset($_POST['update_cart'])){
     foreach($_POST['qty'] as $id => $qty){
         if($qty <= 0) unset($_SESSION['cart'][$id]);
